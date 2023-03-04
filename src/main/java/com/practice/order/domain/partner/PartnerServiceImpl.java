@@ -13,7 +13,7 @@ public class PartnerServiceImpl implements PartnerService {
 
     @Override
     @Transactional
-    public PartnerInfo registerPartner(CommandPartner command) {
+    public PartnerInfo registerPartner(PartnerCommand command) {
         var initPartner = command.toEntity();
         Partner partner = partnerStore.store(initPartner);
 

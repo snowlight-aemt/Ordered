@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class CommandPartner {
+public class PartnerCommand {
     private String businessNo;
     private String partnerName;
     private String email;
