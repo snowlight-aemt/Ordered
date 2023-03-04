@@ -16,10 +16,8 @@ public class PartnerFacade {
 
     public PartnerInfo registerPartner(PartnerCommand command) {
         var partnerInfo = partnerService.registerPartner(command);
-//        notificationService.send();
-        return partnerInfo;
+         notificationService.sendEmail(command.getEmail(), "title", "description");
 
-        // 1. partner 등록
-        // 2. email 전송
+        return partnerInfo;
     }
 }
