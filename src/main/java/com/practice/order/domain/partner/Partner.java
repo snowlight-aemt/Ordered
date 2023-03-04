@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 @Slf4j
+@Getter
 @Entity
 @NoArgsConstructor
 @Table(name = "partners")
@@ -25,6 +26,9 @@ public class Partner extends AbstractEntity {
     private String partnerName;
     private String email;
 
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
     @Builder
     public Partner(String businessNo, String partnerName, String email) {
         if (StringUtils.isEmpty(businessNo)) throw new RuntimeException("empty businessNo");
@@ -37,9 +41,6 @@ public class Partner extends AbstractEntity {
         this.email = email;
         this.status = Status.ENABLE;
     }
-
-    @Enumerated(EnumType.STRING)
-    private Status status;
 
     @Getter
     @RequiredArgsConstructor
