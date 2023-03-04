@@ -2,6 +2,7 @@ package com.practice.order.domain.partner;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
@@ -11,6 +12,7 @@ public class PartnerServiceImpl implements PartnerService {
     private final PartnerReader partnerReader;
 
     @Override
+    @Transactional
     public PartnerInfo registerPartner(CommandPartner command) {
         var initPartner = command.toEntity();
         Partner partner = partnerStore.store(initPartner);
@@ -19,6 +21,7 @@ public class PartnerServiceImpl implements PartnerService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public PartnerInfo getPartnerInfo(String partnerToken) {
         Partner partner = partnerReader.getPartner(partnerToken);
 
@@ -26,6 +29,7 @@ public class PartnerServiceImpl implements PartnerService {
     }
 
     @Override
+    @Transactional
     public PartnerInfo enablePartner(String partnerToken) {
         Partner partner = partnerReader.getPartner(partnerToken);
 
@@ -35,6 +39,7 @@ public class PartnerServiceImpl implements PartnerService {
     }
 
     @Override
+    @Transactional
     public PartnerInfo disablePartner(String partnerToken) {
         Partner partner = partnerReader.getPartner(partnerToken);
 
