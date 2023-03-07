@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
+@Getter
 @NoArgsConstructor
 @Table(name = "items")
 public class Item extends AbstractEntity {
