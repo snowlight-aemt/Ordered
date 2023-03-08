@@ -23,7 +23,7 @@ public class ItemOption extends AbstractEntity {
     private Long itemOptionPrice;
 
     @ManyToOne
-    @JoinColumn(name = "item option_group_id")
+    @JoinColumn(name = "item_option_group_id")
     private ItemOptionGroup itemOptionGroup;
 
     @Builder

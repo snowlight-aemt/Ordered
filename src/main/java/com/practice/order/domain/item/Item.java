@@ -27,7 +27,7 @@ public class Item extends AbstractEntity {
 
     private Long partnerId;
     private String itemName;
-    private String itemPrice;
+    private Long itemPrice;
 
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -46,10 +46,10 @@ public class Item extends AbstractEntity {
     }
 
     @Builder
-    public Item(Long partnerId, String  itemName, String itemPrice) {
+    public Item(Long partnerId, String  itemName, Long itemPrice) {
         if (partnerId == null) throw new InvalidParamException("item.partnerId");
         if (StringUtils.isEmpty(itemName)) throw new InvalidParamException("item.itemName");
-        if (StringUtils.isEmpty(itemPrice)) throw new InvalidParamException("item.itemPrice");
+        if (itemPrice == null) throw new InvalidParamException("item.itemPrice");
 
         this.partnerId = partnerId;
         this.itemName = itemName;

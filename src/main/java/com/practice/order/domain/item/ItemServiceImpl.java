@@ -8,42 +8,17 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class ItemServiceImpl implements ItemService {
-
     private final PartnerReader partnerReader;
     private final ItemStore itemStore;
-    private final ItemOptionGroupStore itemOptionGroupStore;
-    private final ItemOptionStore itemOptionStore;
+    private final ItemOptionSeriesFactory itemOptionSeriesFactory;
 
     @Override
     public String registerItem(ItemCommand.RegisterItemRequest command, String partnerToken) {
         Partner partner = this.partnerReader.getPartner(partnerToken);
-        Long partnerId = partner.getId();
+        Item initItem = command.toEntity(partner.getId());
 
-        Item initItem = Item.builder()
-                            .itemName(command.getItemName())
-                            .itemPrice(command.getItemPrice())
-                            .partnerId(partnerId)
-                            .build();
         Item item = this.itemStore.store(initItem);
-
-        for (var requestItemOptionGroup : command.getItemOptionGroupRequestList()) {
-            ItemOptionGroup initItemOptionGroup = ItemOptionGroup.builder()
-                                .item(item)
-                                .itemOptionGroupName(requestItemOptionGroup.getItemOptionGroupName())
-                                .ordering(requestItemOptionGroup.getOrdering())
-                                .build();
-
-            ItemOptionGroup itemOptionGroup = this.itemOptionGroupStore.store(initItemOptionGroup);
-
-            for (var requestItemOption : requestItemOptionGroup.getItemOptionRequestList()) {
-                ItemOption initItemOption = ItemOption.builder()
-                            .itemOptionName(requestItemOption.getItemOptionName())
-                            .itemOptionPrice(requestItemOption.getItemOptionPrice())
-                            .itemOptionGroup(itemOptionGroup).build();
-
-                this.itemOptionStore.store(initItemOption);
-            }
-        }
+        this.itemOptionSeriesFactory.store(command, item);
 
         return item.getItemToken();
     }
