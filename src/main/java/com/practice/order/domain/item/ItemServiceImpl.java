@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ItemServiceImpl implements ItemService {
@@ -42,6 +44,9 @@ public class ItemServiceImpl implements ItemService {
     @Override
     @Transactional(readOnly = true)
     public ItemInfo.Main retrieveItemInfo(String itemToken) {
-        return null;
+        Item item = this.itemReader.getItemBy(itemToken);
+        var itemOptionSeries = this.itemReader.getItemOptionSeries(item);
+
+        return new ItemInfo.Main(item, itemOptionSeries);
     }
 }
