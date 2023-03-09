@@ -10,9 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Getter
@@ -67,7 +65,7 @@ public class Item extends AbstractEntity {
         this.status = Status.ON_SALES;
     }
 
-    public void endOfSales() {
+    public void changeEndOfSales() {
         this.status = Status.END_OF_SALES;
     }
 }
