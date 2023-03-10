@@ -1,26 +1,20 @@
-package com.practice.order.domain.item;
+package com.practice.order.interfaces.item;
 
+import com.practice.order.domain.item.ItemCommand;
 import lombok.Builder;
 import lombok.Getter;
 
 import java.util.List;
 
-public class ItemCommand {
+public class ItemDto {
 
     @Getter
     @Builder
-    public static class RegisterItemRequest {
+    public static class RegisterRequest {
+        private String partnerToken;
         private String itemName;
         private Long itemPrice;
-        private List<RegisterItemOptionGroupRequest> itemOptionGroupRequestList;
-
-        public Item toEntity(Long PartnerId) {
-            return Item.builder()
-                    .itemName(getItemName())
-                    .itemPrice(getItemPrice())
-                    .partnerId(PartnerId)
-                    .build();
-        }
+        private List<RegisterItemOptionGroupRequest> itemOptionGroupList;
     }
 
     @Getter
@@ -28,7 +22,7 @@ public class ItemCommand {
     public static class RegisterItemOptionGroupRequest {
         private Integer ordering;
         private String itemOptionGroupName;
-        private List<RegisterItemOptionRequest> itemOptionRequestList;
+        private List<ItemCommand.RegisterItemOptionRequest> itemOptionRequestList;
     }
 
     @Getter
@@ -37,5 +31,11 @@ public class ItemCommand {
         private Integer ordering;
         private String itemOptionName;
         private Long itemOptionPrice;
+    }
+
+    @Getter
+    @Builder
+    public static class RegisterResponse {
+        private final String itemToken;
     }
 }

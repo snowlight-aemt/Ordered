@@ -49,7 +49,6 @@ class ItemServiceImplTest {
                 .itemOptionRequestList(itemOptionList)
                 .build());
         var command = ItemCommand.RegisterItemRequest.builder()
-                .partnerId(partner.getId())
                 .itemName("item-name")
                 .itemPrice(100_000L)
                 .itemOptionGroupRequestList(itemOptionGroupList)
@@ -80,7 +79,6 @@ class ItemServiceImplTest {
                 .itemOptionRequestList(itemOptionList)
                 .build());
         var command = ItemCommand.RegisterItemRequest.builder()
-                .partnerId(partner.getId())
                 .itemName("item-name")
                 .itemPrice(100_000L)
                 .itemOptionGroupRequestList(itemOptionGroupList)
