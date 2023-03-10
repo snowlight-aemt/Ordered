@@ -5,7 +5,6 @@ import com.practice.order.domain.item.ItemInfo;
 import com.practice.order.domain.item.ItemService;
 import com.practice.order.domain.notification.NotificationService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,11 +19,11 @@ public class ItemFacade {
         return itemToken;
     }
 
-    public void changeOnSale(String itemToken) {
+    public void changeOnSaleItem(String itemToken) {
         this.itemService.changeOnSale(itemToken);
     }
 
-    public void changeEndOnSale(String itemToken) {
+    public void changeEndOnSaleItem(String itemToken) {
         this.itemService.changeEndOfSale(itemToken);
     }
 
