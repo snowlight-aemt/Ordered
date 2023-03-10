@@ -10,7 +10,6 @@ public class ItemCommand {
     @Getter
     @Builder
     public static class RegisterItemRequest {
-        private Long partnerId;
         private String itemName;
         private Long itemPrice;
         private List<RegisterItemOptionGroupRequest> itemOptionGroupRequestList;

@@ -2,7 +2,6 @@ package com.practice.order.domain.item;
 
 import com.practice.order.domain.partner.*;
 import com.practice.order.infrastructure.item.ItemRepository;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -49,7 +48,6 @@ class ItemServiceImplTest {
                 .itemOptionRequestList(itemOptionList)
                 .build());
         var command = ItemCommand.RegisterItemRequest.builder()
-                .partnerId(partner.getId())
                 .itemName("item-name")
                 .itemPrice(100_000L)
                 .itemOptionGroupRequestList(itemOptionGroupList)
@@ -80,7 +78,6 @@ class ItemServiceImplTest {
                 .itemOptionRequestList(itemOptionList)
                 .build());
         var command = ItemCommand.RegisterItemRequest.builder()
-                .partnerId(partner.getId())
                 .itemName("item-name")
                 .itemPrice(100_000L)
                 .itemOptionGroupRequestList(itemOptionGroupList)
@@ -90,9 +87,9 @@ class ItemServiceImplTest {
         ItemInfo.Main itemInfo = itemService.retrieveItemInfo(itemToken);
 
         assertThat(itemInfo).isNotNull();
-        assertThat(itemInfo.getItemOptionGroupInfoList()).isNotEmpty();
+        assertThat(itemInfo.getItemOptionGroupList()).isNotEmpty();
 
-        itemInfo.getItemOptionGroupInfoList().forEach(itemOptionGroup -> {
+        itemInfo.getItemOptionGroupList().forEach(itemOptionGroup -> {
             assertThat(itemOptionGroup.getItemOptionList()).isNotEmpty();
         });
     }
