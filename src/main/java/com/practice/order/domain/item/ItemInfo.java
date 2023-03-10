@@ -1,6 +1,5 @@
 package com.practice.order.domain.item;
 
-import lombok.Builder;
 import lombok.Getter;
 
 import java.util.List;
@@ -13,7 +12,9 @@ public class ItemInfo {
         private Long partnerId;
         private String itemName;
         private Long itemPrice;
-        private List<ItemOptionGroupInfo> itemOptionGroupInfoList;
+
+        private Item.Status status;
+        private List<ItemOptionGroupInfo> itemOptionGroupList;
 
         public Main(Item item, List<ItemOptionGroupInfo> itemOptionSeries) {
             this.itemToken = item.getItemToken();
@@ -21,7 +22,7 @@ public class ItemInfo {
             this.itemName = item.getItemName();
             this.itemPrice = item.getItemPrice();
 
-            this.itemOptionGroupInfoList = itemOptionSeries;
+            this.itemOptionGroupList = itemOptionSeries;
         }
     }
 

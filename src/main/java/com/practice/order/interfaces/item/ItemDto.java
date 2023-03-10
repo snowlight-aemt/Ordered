@@ -2,9 +2,7 @@ package com.practice.order.interfaces.item;
 
 import com.practice.order.domain.item.Item;
 import com.practice.order.domain.item.ItemCommand;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
 
@@ -42,9 +40,10 @@ public class ItemDto {
     }
 
     @Getter
-    @Builder
+    @Setter
+    @ToString
     public static class ChangeStatusItemRequest {
-        private final String itemToken;
+        private String itemToken;
     }
 
     @Getter

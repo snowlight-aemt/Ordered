@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class ItemFacade {
-    private ItemService itemService;
-    private NotificationService notificationService;
+    private final ItemService itemService;
+    private final  NotificationService notificationService;
 
     public String registerItem(ItemCommand.RegisterItemRequest command, String partnerToken) {
         String itemToken = this.itemService.registerItem(command, partnerToken);
