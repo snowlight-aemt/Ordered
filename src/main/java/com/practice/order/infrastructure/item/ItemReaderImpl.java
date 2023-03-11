@@ -5,6 +5,7 @@ import com.practice.order.domain.item.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,6 +22,7 @@ public class ItemReaderImpl implements ItemReader {
     @Override
     public List<ItemInfo.ItemOptionGroupInfo> getItemOptionSeries(Item item) {
         List<ItemOptionGroup> itemOptionGroups = item.getItemOptionGroups();
+        if (itemOptionGroups == null) return new ArrayList<>();
 
         return itemOptionGroups.stream().map(itemOptionGroup -> {
             List<ItemOption> itemOptionList = itemOptionGroup.getItemOptionList();

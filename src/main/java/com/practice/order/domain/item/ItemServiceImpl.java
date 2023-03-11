@@ -34,6 +34,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    @Transactional
     public void changeEndOfSale(String itemToken) {
         Item item = itemReader.getItemBy(itemToken);
         item.changeEndOfSales();

@@ -21,6 +21,7 @@ public class ItemInfo {
             this.partnerId = item.getPartnerId();
             this.itemName = item.getItemName();
             this.itemPrice = item.getItemPrice();
+            this.status = item.getStatus();
 
             this.itemOptionGroupList = itemOptionSeries;
         }

@@ -1,7 +1,6 @@
 package com.practice.order.interfaces.item;
 
 import com.practice.order.domain.item.Item;
-import com.practice.order.domain.item.ItemCommand;
 import lombok.*;
 
 import java.util.List;
@@ -22,7 +21,7 @@ public class ItemDto {
     public static class RegisterItemOptionGroupRequest {
         private Integer ordering;
         private String itemOptionGroupName;
-        private List<ItemCommand.RegisterItemOptionRequest> itemOptionList;
+        private List<RegisterItemOptionRequest> itemOptionList;
     }
 
     @Getter
@@ -42,6 +41,8 @@ public class ItemDto {
     @Getter
     @Setter
     @ToString
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class ChangeStatusItemRequest {
         private String itemToken;
     }

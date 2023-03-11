@@ -5,9 +5,7 @@ import com.practice.order.domain.partner.Partner;
 import com.practice.order.domain.partner.PartnerInfo;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 public class PartnerDto {
 
@@ -31,6 +29,13 @@ public class PartnerDto {
                     .businessNo(businessNo)
                     .email(email)
                     .build();
+        }
+
+        @Builder
+        public RegisterRequest(String partnerName, String businessNo, String email) {
+            this.partnerName = partnerName;
+            this.businessNo = businessNo;
+            this.email = email;
         }
     }
 

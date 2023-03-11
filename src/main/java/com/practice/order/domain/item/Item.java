@@ -37,7 +37,7 @@ public class Item extends AbstractEntity {
     @AllArgsConstructor
     public enum Status {
         PREPARE("판매준비중"),
-        ON_SALES("준비중"),
+        ON_SALES("판매중"),
         END_OF_SALES("판매완료");
 
         private final String description;
