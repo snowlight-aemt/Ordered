@@ -2,11 +2,12 @@ package com.practice.order.domain.order;
 
 import com.practice.order.domain.item.Item;
 import com.practice.order.domain.item.ItemReader;
+import com.practice.order.domain.order.item.OrderItem;
+import com.practice.order.domain.order.item.OrderItemOption;
+import com.practice.order.domain.order.item.OrderItemOptionGroup;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor

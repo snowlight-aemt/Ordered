@@ -4,6 +4,8 @@ import com.google.common.collect.Lists;
 import com.practice.order.common.exception.InvalidParamException;
 import com.practice.order.common.util.TokenGenerator;
 import com.practice.order.domain.AbstractEntity;
+import com.practice.order.domain.order.fragment.DeliveryFragment;
+import com.practice.order.domain.order.item.OrderItem;
 import jakarta.persistence.*;
 import lombok.*;
 import org.apache.commons.lang3.StringUtils;

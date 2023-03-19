@@ -1,4 +1,4 @@
-package com.practice.order.domain.order;
+package com.practice.order.domain.order.fragment;
 
 
 import com.practice.order.common.exception.InvalidParamException;

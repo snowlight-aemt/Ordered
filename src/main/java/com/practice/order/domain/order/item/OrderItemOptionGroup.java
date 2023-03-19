@@ -1,4 +1,4 @@
-package com.practice.order.domain.order;
+package com.practice.order.domain.order.item;
 
 import com.google.common.collect.Lists;
 import com.practice.order.common.exception.InvalidParamException;

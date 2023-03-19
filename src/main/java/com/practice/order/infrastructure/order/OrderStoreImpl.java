@@ -1,6 +1,9 @@
 package com.practice.order.infrastructure.order;
 
 import com.practice.order.domain.order.*;
+import com.practice.order.domain.order.item.OrderItem;
+import com.practice.order.domain.order.item.OrderItemOption;
+import com.practice.order.domain.order.item.OrderItemOptionGroup;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

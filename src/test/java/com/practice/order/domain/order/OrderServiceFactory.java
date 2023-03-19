@@ -1,5 +1,6 @@
 package com.practice.order.domain.order;
 
+import com.practice.order.domain.order.fragment.DeliveryFragment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
