@@ -17,30 +17,13 @@ public class OrderServiceImpl implements OrderService {
     private final OrderStore orderStore;
     private final OrderReader orderReader;
     private final OrderInfoMapper orderInfoMapper;
-    private final ItemReader itemReader;
-
+    private final OrderItemSeriesFactory orderItemSeriesFactory;
 
     @Transactional
     @Override
     public String registerOrder(OrderCommand.RegisterOrder command) {
-        Order order = command.toEntity();
-        orderStore.store(order);
-
-        for (var orderItemRequest : command.getOrderItems()) {
-            Item item = itemReader.getItemBy(orderItemRequest.getItemToken());
-            OrderItem orderItem = orderItemRequest.toEntity(order, item);
-            orderStore.store(orderItem);
-
-            for (var orderItemOptionGroupRequest : orderItemRequest.getOrderItemOptionGroups()) {
-                OrderItemOptionGroup orderItemOptionGroup = orderItemOptionGroupRequest.toEntity(orderItem);
-                orderStore.store(orderItemOptionGroup);
-
-                for (var orderItemOptionRequest : orderItemOptionGroupRequest.getOrderItemOptionList()) {
-                    OrderItemOption orderItemOption = orderItemOptionRequest.toEntity(orderItemOptionGroup);
-                    orderStore.store(orderItemOption);
-                }
-            }
-        }
+        Order order = orderStore.store(command.toEntity());
+        orderItemSeriesFactory.store(order, command.getOrderItems());
 
         return order.getOrderToken();
     }
