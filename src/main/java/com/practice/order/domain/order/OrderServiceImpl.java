@@ -4,13 +4,18 @@ import com.practice.order.domain.item.Item;
 import com.practice.order.domain.item.ItemReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
     private final OrderStore orderStore;
+    private final OrderReader orderReader;
     private final ItemReader itemReader;
 
+    @Transactional
     @Override
     public String registerOrder(OrderCommand.RegisterOrder command) {
         Order order = command.toEntity();

@@ -18,7 +18,7 @@ import java.util.List;
 public class OrderItemOptionGroup extends AbstractEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long orderItemOptionGroupId;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "order_item_id")
