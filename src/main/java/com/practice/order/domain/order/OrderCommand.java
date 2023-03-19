@@ -14,23 +14,13 @@ public class OrderCommand {
     @Builder
     public static class RegisterOrder {
         private Long userId;
-        private String receiverName;
-        private String receiverPhone;
-        private String receiverZipcode;
-        private String receiverAddress1;
-        private String receiverAddress2;
-        private String etcMessage;
+        private DeliveryFragment deliveryFragment;
         private String payMethod;
         private List<RegisterOrderItem> orderItems;
 
         public Order toEntity() {
             return Order.builder()
-                    .receiverName(this.receiverName)
-                    .receiverPhone(this.receiverPhone)
-                    .receiverZipcode(this.receiverZipcode)
-                    .receiverAddress1(this.receiverAddress1)
-                    .receiverAddress2(this.receiverAddress2)
-                    .etcMessage(this.etcMessage)
+                    .deliveryFragment(deliveryFragment)
                     .payMethod(this.payMethod)
                     .userId(this.userId)
                     .build();

@@ -28,12 +28,8 @@ public class Order extends AbstractEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.PERSIST)
     private List<OrderItem> orderItems = Lists.newArrayList();
 
-    private String receiverName;
-    private String receiverZipcode;
-    private String receiverPhone;
-    private String receiverAddress1;
-    private String receiverAddress2;
-    private String etcMessage;
+    @Embedded
+    private DeliveryFragment deliveryFragment;
 
     private ZonedDateTime orderedAt;
 
@@ -54,30 +50,15 @@ public class Order extends AbstractEntity {
 
     @Builder
     public Order(Long userId,
-                 String receiverName,
-                 String receiverPhone,
-                 String receiverZipcode,
-                 String receiverAddress1,
-                 String receiverAddress2,
-                 String etcMessage,
+                 DeliveryFragment deliveryFragment,
                  String payMethod) {
 
         if (userId == null) throw new InvalidParamException("Order.userId");
-        if (StringUtils.isEmpty(receiverName)) throw new InvalidParamException("Order.receiverName");
-        if (StringUtils.isEmpty(receiverPhone)) throw new InvalidParamException("Order.receiverPhone");
-        if (StringUtils.isEmpty(receiverZipcode)) throw new InvalidParamException("Order.receiverZipCode");
-        if (StringUtils.isEmpty(receiverAddress1)) throw new InvalidParamException("Order.receiverAddress1");
-        if (StringUtils.isEmpty(receiverAddress2)) throw new InvalidParamException("Order.receiverAddress2");
-        if (StringUtils.isEmpty(etcMessage)) throw new InvalidParamException("Order.etcMessage");
+        if (deliveryFragment == null) throw new InvalidParamException("Order.deliveryFragment");
         if (StringUtils.isEmpty(payMethod)) throw new InvalidParamException("Order.payMethod");
 
         this.userId = userId;
-        this.receiverName = receiverName;
-        this.receiverZipcode = receiverZipcode;
-        this.receiverPhone = receiverPhone;
-        this.receiverAddress1 = receiverAddress1;
-        this.receiverAddress2 = receiverAddress2;
-        this.etcMessage = etcMessage;
+        this.deliveryFragment = deliveryFragment;
         this.payMethod = payMethod;
 
         this.orderToken = TokenGenerator.randomCharacterWithPrefix(ORDER_PREFIX);
