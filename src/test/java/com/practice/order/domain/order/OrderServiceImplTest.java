@@ -7,9 +7,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -35,5 +32,17 @@ class OrderServiceImplTest {
 
         assertThat(token).isNotEmpty();
         assertThat(token).isNotNull();
+    }
+
+    @Test
+    public void retrieveOrder() {
+        PartnerInfo partnerInfo = partnerServiceFactory.registerPartner();
+        String itemToken = itemServiceFactory.registerItem(partnerInfo.getPartnerToken());
+        String orderToken = orderServiceFactory.registerOrder(itemToken);
+
+        OrderInfo.Main orderInfo = orderService.retrieveOrder(orderToken);
+        assertThat(orderInfo).isNotNull();
+        assertThat(orderInfo.getOrderToken()).isEqualTo(orderToken);
+        assertThat(orderInfo.getTotalAmount()).isEqualTo(11_000L);
     }
 }

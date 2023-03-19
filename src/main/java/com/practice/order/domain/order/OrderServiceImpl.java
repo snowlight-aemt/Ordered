@@ -9,12 +9,16 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
     private final OrderStore orderStore;
     private final OrderReader orderReader;
+    private final OrderInfoMapper orderInfoMapper;
     private final ItemReader itemReader;
+
 
     @Transactional
     @Override
@@ -39,5 +43,14 @@ public class OrderServiceImpl implements OrderService {
         }
 
         return order.getOrderToken();
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public OrderInfo.Main retrieveOrder(String orderToken) {
+        Order order = this.orderReader.getOrderBy(orderToken);
+        List<OrderItem> orderItems = order.getOrderItems();
+
+        return this.orderInfoMapper.of(order, orderItems);
     }
 }
