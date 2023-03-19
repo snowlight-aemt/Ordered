@@ -1,15 +1,18 @@
 package com.practice.order.domain.order;
 
 import com.practice.order.common.exception.InvalidParamException;
+import com.practice.order.domain.AbstractEntity;
 import jakarta.persistence.*;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 
 @NoArgsConstructor
 @Entity
+@Getter
 @Table(name = "order_item_options")
-public class OrderItemOption {
+public class OrderItemOption extends AbstractEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderItemOptionId;

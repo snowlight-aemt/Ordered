@@ -1,6 +1,7 @@
 package com.practice.order.domain.order;
 
 import com.practice.order.common.exception.InvalidParamException;
+import com.practice.order.domain.AbstractEntity;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,9 +12,10 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.List;
 
 @NoArgsConstructor
+@Getter
 @Entity
 @Table(name = "order_items")
-public class OrderItem {
+public class OrderItem extends AbstractEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -62,9 +64,20 @@ public class OrderItem {
         this.deliveryStatus = DeliveryStatus.INIT;
     }
 
+    public Long calculateTotalAmount() {
+        Long optionTotalPrice = this.orderItemOptionGroups.stream()
+                .flatMapToLong(orderItemOptionGroup ->
+                        orderItemOptionGroup.getOrderItemOptions().stream()
+                                .mapToLong(OrderItemOption::getItemOptionPrice)
+                )
+                .sum();
+
+        return (this.getItemPrice() + optionTotalPrice) * orderCount;
+    }
+
     @Getter
     @RequiredArgsConstructor
-    private enum DeliveryStatus {
+    public enum DeliveryStatus {
         INIT("주문시작"),
         ORDER_COMPLETE("주문완료"),
         DELIVERY_PREPARE("배송준비"),

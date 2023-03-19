@@ -32,7 +32,7 @@ public class Order extends AbstractEntity {
     private List<OrderItem> orderItems = Lists.newArrayList();
 
     private String receiverName;
-    private String receiverZipCode;
+    private String receiverZipcode;
     private String receiverPhone;
     private String receiverAddress1;
     private String receiverAddress2;
@@ -59,29 +59,38 @@ public class Order extends AbstractEntity {
     public Order(Long userId,
                  String receiverName,
                  String receiverPhone,
-                 String receiverZipCode,
+                 String receiverZipcode,
                  String receiverAddress1,
                  String receiverAddress2,
-                 String etcMessage) {
+                 String etcMessage,
+                 String payMethod) {
 
         if (userId == null) throw new InvalidParamException("Order.userId");
         if (StringUtils.isEmpty(receiverName)) throw new InvalidParamException("Order.receiverName");
         if (StringUtils.isEmpty(receiverPhone)) throw new InvalidParamException("Order.receiverPhone");
-        if (StringUtils.isEmpty(receiverZipCode)) throw new InvalidParamException("Order.receiverZipCode");
+        if (StringUtils.isEmpty(receiverZipcode)) throw new InvalidParamException("Order.receiverZipCode");
         if (StringUtils.isEmpty(receiverAddress1)) throw new InvalidParamException("Order.receiverAddress1");
         if (StringUtils.isEmpty(receiverAddress2)) throw new InvalidParamException("Order.receiverAddress2");
         if (StringUtils.isEmpty(etcMessage)) throw new InvalidParamException("Order.etcMessage");
+        if (StringUtils.isEmpty(payMethod)) throw new InvalidParamException("Order.payMethod");
 
         this.userId = userId;
         this.receiverName = receiverName;
-        this.receiverZipCode = receiverZipCode;
+        this.receiverZipcode = receiverZipcode;
         this.receiverPhone = receiverPhone;
         this.receiverAddress1 = receiverAddress1;
         this.receiverAddress2 = receiverAddress2;
         this.etcMessage = etcMessage;
+        this.payMethod = payMethod;
 
         this.orderToken = TokenGenerator.randomCharacterWithPrefix(ORDER_PREFIX);
         this.status = Status.INIT;
         this.orderedAt = ZonedDateTime.now();
+    }
+
+    public Long calculateTotalAmount() {
+        return this.orderItems.stream()
+                .mapToLong(OrderItem::calculateTotalAmount)
+                .sum();
     }
 }
