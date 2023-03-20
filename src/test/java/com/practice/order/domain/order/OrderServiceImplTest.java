@@ -16,11 +16,12 @@ class OrderServiceImplTest {
     private PartnerServiceFactory partnerServiceFactory;
     @Autowired
     private ItemServiceFactory itemServiceFactory;
-
     @Autowired
     private OrderServiceFactory orderServiceFactory;
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private OrderReader orderReader;
 
     @DisplayName("Order 생성")
     @Test
@@ -34,6 +35,25 @@ class OrderServiceImplTest {
         assertThat(token).isNotNull();
     }
 
+    @DisplayName("Order 지불")
+    @Test
+    public void paymentOrder() {
+        PartnerInfo partnerInfo = partnerServiceFactory.registerPartner();
+        String itemToken = itemServiceFactory.registerItem(partnerInfo.getPartnerToken());
+        String orderToken = orderServiceFactory.registerOrder(itemToken);
+        var command = OrderCommand.PaymentRequest.builder()
+                                                .orderToken(orderToken)
+                                                .amount(10_000L)
+                                                .payMethod(PayMethod.TOSS_PAY)
+                                                .build();
+
+        orderService.paymentOrder(command);
+
+        Order actual = this.orderReader.getOrderBy(orderToken);
+        assertThat(actual.getStatus()).isEqualTo(Order.Status.ORDER_COMPLETE);
+    }
+
+    @DisplayName("Order 조회")
     @Test
     public void retrieveOrder() {
         PartnerInfo partnerInfo = partnerServiceFactory.registerPartner();

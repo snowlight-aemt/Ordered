@@ -86,4 +86,12 @@ public class OrderCommand {
                     .build();
         }
     }
+
+    @Getter
+    @Builder
+    public static class PaymentRequest {
+        private String orderToken;
+        private Long amount;
+        private PayMethod payMethod;
+    }
 }

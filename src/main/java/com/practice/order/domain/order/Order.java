@@ -1,6 +1,7 @@
 package com.practice.order.domain.order;
 
 import com.google.common.collect.Lists;
+import com.practice.order.common.exception.IllegalStatusException;
 import com.practice.order.common.exception.InvalidParamException;
 import com.practice.order.common.util.TokenGenerator;
 import com.practice.order.domain.AbstractEntity;
@@ -38,6 +39,7 @@ public class Order extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+
     @Getter
     @RequiredArgsConstructor
     public enum Status {
@@ -72,5 +74,11 @@ public class Order extends AbstractEntity {
         return this.orderItems.stream()
                 .mapToLong(OrderItem::calculateTotalAmount)
                 .sum();
+    }
+
+    public void orderComplete() {
+        if (this.status != Status.INIT) throw new IllegalStatusException();
+
+        this.status = Status.ORDER_COMPLETE;
     }
 }
