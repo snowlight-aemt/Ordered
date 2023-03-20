@@ -2,9 +2,11 @@ package com.practice.order.domain.item;
 
 import com.practice.order.domain.partner.*;
 import com.practice.order.infrastructure.item.ItemRepository;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -29,6 +31,7 @@ class ItemServiceImplTest {
     @Autowired
     private ItemRepository itemRepository;
 
+    @DisplayName("상품 생성")
     @Test
     void registerItem() {
         // Arrange
@@ -60,6 +63,7 @@ class ItemServiceImplTest {
         assertNotNull(itemToken);
     }
 
+    @DisplayName("상품 조회")
     @Test
     void retrieveItemInfo() {
         PartnerCommand partnerCommand = PartnerCommand.builder().partnerName("Name").businessNo("No").email("test@naver.com").build();
