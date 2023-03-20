@@ -1,10 +1,6 @@
 package com.practice.order.domain.order;
 
-import com.practice.order.domain.item.Item;
-import com.practice.order.domain.item.ItemReader;
 import com.practice.order.domain.order.item.OrderItem;
-import com.practice.order.domain.order.item.OrderItemOption;
-import com.practice.order.domain.order.item.OrderItemOptionGroup;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +14,7 @@ public class OrderServiceImpl implements OrderService {
     private final OrderReader orderReader;
     private final OrderInfoMapper orderInfoMapper;
     private final OrderItemSeriesFactory orderItemSeriesFactory;
+    private final com.practice.order.domain.order.payment.PaymentProcessor PaymentProcessor;
 
     @Transactional
     @Override
@@ -26,6 +23,15 @@ public class OrderServiceImpl implements OrderService {
         orderItemSeriesFactory.store(order, command.getOrderItems());
 
         return order.getOrderToken();
+    }
+
+    @Transactional
+    @Override
+    public void paymentOrder(OrderCommand.PaymentRequest paymentRequest) {
+        String orderToken = paymentRequest.getOrderToken();
+        Order order = this.orderReader.getOrderBy(orderToken);
+        this.PaymentProcessor.pay(order, paymentRequest);
+        order.orderComplete();
     }
 
     @Transactional(readOnly = true)

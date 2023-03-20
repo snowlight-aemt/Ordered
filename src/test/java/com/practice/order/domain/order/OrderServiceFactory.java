@@ -43,7 +43,7 @@ public class OrderServiceFactory {
                         .etcMessage("etc message")
                         .build())
                 .orderItems(List.of(registerOrderRequest))
-                .payMethod("KakaoPay")
+                .payMethod("KAKAO_PAY")
                 .build();
 
         return orderService.registerOrder(command);

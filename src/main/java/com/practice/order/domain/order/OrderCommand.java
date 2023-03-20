@@ -5,6 +5,7 @@ import com.practice.order.domain.order.fragment.DeliveryFragment;
 import com.practice.order.domain.order.item.OrderItem;
 import com.practice.order.domain.order.item.OrderItemOption;
 import com.practice.order.domain.order.item.OrderItemOptionGroup;
+import com.practice.order.domain.order.payment.PayMethod;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -85,5 +86,13 @@ public class OrderCommand {
                     .itemOptionPrice(itemOptionPrice)
                     .build();
         }
+    }
+
+    @Getter
+    @Builder
+    public static class PaymentRequest {
+        private String orderToken;
+        private Long amount;
+        private PayMethod payMethod;
     }
 }
