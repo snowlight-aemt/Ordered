@@ -1,8 +1,10 @@
 package com.practice.order.infrastructure.order.payment;
 
 import com.practice.order.common.exception.InvalidParamException;
+import com.practice.order.domain.order.Order;
 import com.practice.order.domain.order.OrderCommand;
 import com.practice.order.domain.order.payment.PaymentProcessor;
+import com.practice.order.domain.order.payment.validator.PaymentValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -13,10 +15,12 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class PaymentProcessorImpl implements PaymentProcessor {
+    private final List<PaymentValidator> paymentValidators;
     private final List<PaymentApiCaller> paymentApiCallers;
 
     @Override
-    public void pay(OrderCommand.PaymentRequest paymentRequest) {
+    public void pay(Order order, OrderCommand.PaymentRequest paymentRequest) {
+        paymentValidators.forEach(validator -> validator.validate(order, paymentRequest));
         PaymentApiCaller paymentApiCaller = routingApiCaller(paymentRequest);
         paymentApiCaller.pay(paymentRequest);
     }

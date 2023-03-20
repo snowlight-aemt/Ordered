@@ -39,6 +39,10 @@ public class Order extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    public boolean isAlreadyPaymentComplete() {
+        return this.getStatus() != Status.INIT;
+    }
+
 
     @Getter
     @RequiredArgsConstructor

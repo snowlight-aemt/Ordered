@@ -1,5 +1,6 @@
 package com.practice.order.domain.order;
 
+import com.practice.order.common.exception.InvalidParamException;
 import com.practice.order.domain.order.payment.PayMethod;
 import com.practice.order.domain.partner.PartnerInfo;
 import com.practice.order.interfaces.item.ItemServiceFactory;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @SpringBootTest
 class OrderServiceImplTest {
@@ -44,14 +46,73 @@ class OrderServiceImplTest {
         String orderToken = orderServiceFactory.registerOrder(itemToken);
         var command = OrderCommand.PaymentRequest.builder()
                                                 .orderToken(orderToken)
-                                                .amount(10_000L)
-                                                .payMethod(PayMethod.TOSS_PAY)
+                                                .amount(11_000L)
+                                                .payMethod(PayMethod.KAKAO_PAY)
                                                 .build();
 
         orderService.paymentOrder(command);
 
         Order actual = this.orderReader.getOrderBy(orderToken);
         assertThat(actual.getStatus()).isEqualTo(Order.Status.ORDER_COMPLETE);
+    }
+
+    @DisplayName("Order 지불 - 주문 가격 불일치")
+    @Test
+    public void paymentOrder_payAmountValidator() {
+        PartnerInfo partnerInfo = partnerServiceFactory.registerPartner();
+        String itemToken = itemServiceFactory.registerItem(partnerInfo.getPartnerToken());
+        String orderToken = orderServiceFactory.registerOrder(itemToken);
+        var command = OrderCommand.PaymentRequest.builder()
+                .orderToken(orderToken)
+                .amount(10_000L)
+                .payMethod(PayMethod.KAKAO_PAY)
+                .build();
+
+        assertThatThrownBy(() -> {
+            orderService.paymentOrder(command);
+        })
+            .isInstanceOf(InvalidParamException.class)
+            .hasMessage("주문가격이 불일치합니다.");
+    }
+
+    @DisplayName("Order 지불 - 주문 과정 불일치")
+    @Test
+    public void paymentOrder_payMethodValidator() {
+        PartnerInfo partnerInfo = partnerServiceFactory.registerPartner();
+        String itemToken = itemServiceFactory.registerItem(partnerInfo.getPartnerToken());
+        String orderToken = orderServiceFactory.registerOrder(itemToken);
+        var command = OrderCommand.PaymentRequest.builder()
+                .orderToken(orderToken)
+                .amount(11_000L)
+                .payMethod(PayMethod.TOSS_PAY)
+                .build();
+
+        assertThatThrownBy(() -> {
+            orderService.paymentOrder(command);
+        })
+            .isInstanceOf(InvalidParamException.class)
+            .hasMessage("주문 과정에서의 결제수단이 다릅니다.");
+    }
+
+
+    @DisplayName("Order 지불 - 이미 주문 완료")
+    @Test
+    public void paymentOrder_payStatusValidator() {
+        PartnerInfo partnerInfo = partnerServiceFactory.registerPartner();
+        String itemToken = itemServiceFactory.registerItem(partnerInfo.getPartnerToken());
+        String orderToken = orderServiceFactory.registerOrder(itemToken);
+        var command = OrderCommand.PaymentRequest.builder()
+                .orderToken(orderToken)
+                .amount(11_000L)
+                .payMethod(PayMethod.KAKAO_PAY)
+                .build();
+        orderService.paymentOrder(command);
+
+        assertThatThrownBy(() -> {
+            orderService.paymentOrder(command);
+        })
+            .isInstanceOf(InvalidParamException.class)
+            .hasMessage("이미 결제완료된 주문입니다.");
     }
 
     @DisplayName("Order 조회")

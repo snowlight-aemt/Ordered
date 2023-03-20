@@ -30,7 +30,7 @@ public class OrderServiceImpl implements OrderService {
     public void paymentOrder(OrderCommand.PaymentRequest paymentRequest) {
         String orderToken = paymentRequest.getOrderToken();
         Order order = this.orderReader.getOrderBy(orderToken);
-        this.PaymentProcessor.pay(paymentRequest);
+        this.PaymentProcessor.pay(order, paymentRequest);
         order.orderComplete();
     }
 
