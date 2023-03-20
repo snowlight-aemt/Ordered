@@ -14,7 +14,7 @@ public class OrderServiceImpl implements OrderService {
     private final OrderReader orderReader;
     private final OrderInfoMapper orderInfoMapper;
     private final OrderItemSeriesFactory orderItemSeriesFactory;
-    private final PaymentProcessor PaymentProcessor;
+    private final com.practice.order.domain.order.payment.PaymentProcessor PaymentProcessor;
 
     @Transactional
     @Override

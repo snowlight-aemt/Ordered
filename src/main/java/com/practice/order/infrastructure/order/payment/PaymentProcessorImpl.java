@@ -1,8 +1,8 @@
-package com.practice.order.infrastructure.order;
+package com.practice.order.infrastructure.order.payment;
 
 import com.practice.order.common.exception.InvalidParamException;
 import com.practice.order.domain.order.OrderCommand;
-import com.practice.order.domain.order.PaymentProcessor;
+import com.practice.order.domain.order.payment.PaymentProcessor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

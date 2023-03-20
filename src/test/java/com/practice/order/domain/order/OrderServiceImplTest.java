@@ -1,5 +1,6 @@
 package com.practice.order.domain.order;
 
+import com.practice.order.domain.order.payment.PayMethod;
 import com.practice.order.domain.partner.PartnerInfo;
 import com.practice.order.interfaces.item.ItemServiceFactory;
 import com.practice.order.interfaces.partner.PartnerServiceFactory;

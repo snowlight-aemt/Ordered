@@ -1,19 +1,18 @@
-package com.practice.order.infrastructure.order;
+package com.practice.order.infrastructure.order.payment;
 
 import com.practice.order.domain.order.OrderCommand;
-import com.practice.order.domain.order.PayMethod;
+import com.practice.order.domain.order.payment.PayMethod;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TossPayApiCaller implements PaymentApiCaller {
-
+public class CardApiCaller implements PaymentApiCaller {
     @Override
     public boolean support(PayMethod payMethod) {
-        return payMethod == PayMethod.TOSS_PAY;
+        return payMethod == PayMethod.CARD;
     }
 
     @Override
     public void pay(OrderCommand.PaymentRequest paymentRequest) {
-        // Poss //
+        // Card Api //
     }
 }
