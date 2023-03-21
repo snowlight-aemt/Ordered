@@ -1,0 +1,38 @@
+### 주문 등록
+POST http://localhost:8080/api/v1/orders/init
+Content-Type: application/json
+
+{
+  "userId": "4444",
+  "deliveryFragment": {
+    "receiverName":  "receiver name",
+    "receiverPhone": "000-0000-0000",
+    "receiverZipcode":  "000-000",
+    "receiverAddress1": "receiver address 1",
+    "receiverAddress2":  "receiver address 2",
+    "etcMessage": "message"
+  },
+  "payMethod": "KAKAO_PAY",
+  "orderItems": [
+    {
+      "orderCount": "1",
+      "itemName": "티셔츠",
+      "itemToken": "itm_tDwWdzepqJPDbPJQ",
+      "itemPrice": 30000,
+      "orderItemOptionGroups": [
+        {
+          "ordering": 1,
+          "itemOptionGroupName": "사이즈",
+          "orderItemOptions": [
+            {
+              "ordering": 1,
+              "itemOptionName": "MEDIUM",
+              "itemOptionPrice": 0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
