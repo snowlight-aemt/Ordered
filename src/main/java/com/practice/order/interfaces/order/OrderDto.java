@@ -1,6 +1,7 @@
 package com.practice.order.interfaces.order;
 
 import com.practice.order.domain.order.fragment.DeliveryFragment;
+import com.practice.order.domain.order.payment.PayMethod;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -48,5 +49,13 @@ public class OrderDto {
     @Builder
     public static class RegisterOrderResponse {
         private String orderToken;
+    }
+
+    @Getter
+    @Builder
+    public static class PaymentRequest {
+        private String orderToken;
+        private Long amount;
+        private PayMethod payMethod;
     }
 }

@@ -27,4 +27,11 @@ public class OrderApiController {
         var response = orderDtoMapper.of(orderToken);
         return CommonResponse.success(response);
     }
+
+    @PostMapping("/payment-order")
+    public CommonResponse payment(@RequestBody @Valid OrderDto.PaymentRequest request) {
+        OrderCommand.PaymentRequest paymentRequest = orderDtoMapper.of(request);
+        orderFacade.pay(paymentRequest);
+        return CommonResponse.success("OK");
+    }
 }
