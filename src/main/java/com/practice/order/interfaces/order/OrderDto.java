@@ -43,4 +43,10 @@ public class OrderDto {
         private String itemOptionName;
         private Long itemOptionPrice;
     }
+
+    @Getter
+    @Builder
+    public static class RegisterOrderResponse {
+        private String orderToken;
+    }
 }

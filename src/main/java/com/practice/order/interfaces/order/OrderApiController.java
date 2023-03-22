@@ -21,10 +21,10 @@ public class OrderApiController {
     private final OrderDtoMapper orderDtoMapper;
 
     @PostMapping("/init")
-    public CommonResponse init(@RequestBody @Valid OrderDto.RegisterOrderRequest request) {
+    public CommonResponse registerOrder(@RequestBody @Valid OrderDto.RegisterOrderRequest request) {
         OrderCommand.RegisterOrder command = orderDtoMapper.of(request);
         String orderToken = orderFacade.registerOrder(command);
-        log.info(orderToken);
-        return null;
+        var response = orderDtoMapper.of(orderToken);
+        return CommonResponse.success(response);
     }
 }
