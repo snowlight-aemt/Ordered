@@ -32,7 +32,7 @@ class OrderApiControllerTest {
     @Autowired
     ObjectMapper objectMapper;
     @Autowired
-    OrderFactory orderFactory;
+    OrderDtoFactory orderDtoFactory;
     @Autowired
     OrderService orderService;
     @Autowired
@@ -40,11 +40,8 @@ class OrderApiControllerTest {
 
     @Test
     public void registerOrder() throws Exception {
-        PartnerInfo partnerInfo = partnerServiceFactory.registerPartner();
-        String partnerToken = partnerInfo.getPartnerToken();
-        String itemToken = itemServiceFactory.registerItem(partnerToken);
-
-        OrderDto.RegisterOrderRequest order = this.orderFactory.createRegisterOrderRequest(itemToken);
+        String itemToken = registerItem();
+        OrderDto.RegisterOrderRequest order = this.orderDtoFactory.convertRegisterOrderRequest(itemToken);
 
         mvc.perform(post("/api/v1/orders/init")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -61,19 +58,15 @@ class OrderApiControllerTest {
 
     @Test
     public void pay() throws Exception {
-        PartnerInfo partnerInfo = partnerServiceFactory.registerPartner();
-        String partnerToken = partnerInfo.getPartnerToken();
-        String itemToken = itemServiceFactory.registerItem(partnerToken);
-
-        OrderDto.RegisterOrderRequest order = this.orderFactory.createRegisterOrderRequest(itemToken);
-
+        String itemToken = registerItem();
+        var order = this.orderDtoFactory.convertRegisterOrderRequest(itemToken);
         String orderToken = orderService.registerOrder(orderDtoMapper.of(order));
-        OrderInfo.Main main = orderService.retrieveOrder(orderToken);
 
+        OrderInfo.Main orderInfo = orderService.retrieveOrder(orderToken);
         OrderDto.PaymentRequest command = OrderDto.PaymentRequest.builder()
                 .payMethod(PayMethod.KAKAO_PAY)
-                .orderToken(main.getOrderToken())
-                .amount(main.getTotalAmount())
+                .orderToken(orderInfo.getOrderToken())
+                .amount(orderInfo.getTotalAmount())
                 .build();
 
         mvc.perform(post("/api/v1/orders/payment-order")
@@ -89,4 +82,9 @@ class OrderApiControllerTest {
         ;
     }
 
+    private String registerItem() {
+        PartnerInfo partnerInfo = partnerServiceFactory.registerPartner();
+        String partnerToken = partnerInfo.getPartnerToken();
+        return itemServiceFactory.registerItem(partnerToken);
+    }
 }
