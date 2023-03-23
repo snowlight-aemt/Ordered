@@ -1,10 +1,11 @@
-package com.practice.order.interfaces.order;
+package com.practice.order.util;
 
 import com.practice.order.domain.item.Item;
 import com.practice.order.domain.item.ItemOption;
 import com.practice.order.domain.item.ItemOptionGroup;
 import com.practice.order.domain.item.ItemReader;
 import com.practice.order.domain.order.fragment.DeliveryFragment;
+import com.practice.order.interfaces.order.OrderDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;

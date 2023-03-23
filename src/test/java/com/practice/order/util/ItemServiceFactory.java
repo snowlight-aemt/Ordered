@@ -1,7 +1,9 @@
-package com.practice.order.interfaces.item;
+package com.practice.order.util;
 
 import com.practice.order.domain.item.ItemService;
 import com.practice.order.domain.partner.PartnerInfo;
+import com.practice.order.interfaces.item.ItemDto;
+import com.practice.order.interfaces.item.ItemDtoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +13,8 @@ import java.util.List;
 public class ItemServiceFactory {
     @Autowired
     ItemService itemService;
-    @Autowired ItemDtoMapper itemDtoMapper;
+    @Autowired
+    ItemDtoMapper itemDtoMapper;
 
     public String registerItem(String partnerToken) {
         var itemDtoRequest = ItemServiceFactory.createRegisterItemRequestWithOption(partnerToken);
