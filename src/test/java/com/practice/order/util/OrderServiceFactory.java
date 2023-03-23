@@ -1,5 +1,7 @@
-package com.practice.order.domain.order;
+package com.practice.order.util;
 
+import com.practice.order.domain.order.OrderCommand;
+import com.practice.order.domain.order.OrderService;
 import com.practice.order.domain.order.fragment.DeliveryFragment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,7 +13,7 @@ public class OrderServiceFactory {
     @Autowired
     private OrderService orderService;
 
-    String registerOrder(String itemToken) {
+    public String registerOrder(String itemToken) {
         OrderCommand.RegisterOrderItemOption optionRequest = OrderCommand.RegisterOrderItemOption.builder()
                 .itemOptionName("option name")
                 .ordering(1)

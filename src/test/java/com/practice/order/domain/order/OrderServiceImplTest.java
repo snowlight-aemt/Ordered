@@ -3,8 +3,9 @@ package com.practice.order.domain.order;
 import com.practice.order.common.exception.InvalidParamException;
 import com.practice.order.domain.order.payment.PayMethod;
 import com.practice.order.domain.partner.PartnerInfo;
-import com.practice.order.interfaces.item.ItemServiceFactory;
-import com.practice.order.interfaces.partner.PartnerServiceFactory;
+import com.practice.order.util.ItemServiceFactory;
+import com.practice.order.util.OrderServiceFactory;
+import com.practice.order.util.PartnerServiceFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ class OrderServiceImplTest {
     @Autowired
     private OrderReader orderReader;
 
-    @DisplayName("Order 생성")
+    @DisplayName("주문 생성 서비스")
     @Test
     public void registerOrder() {
         PartnerInfo partnerInfo = partnerServiceFactory.registerPartner();
@@ -38,7 +39,7 @@ class OrderServiceImplTest {
         assertThat(token).isNotNull();
     }
 
-    @DisplayName("Order 지불")
+    @DisplayName("주문 결제 서비스")
     @Test
     public void paymentOrder() {
         PartnerInfo partnerInfo = partnerServiceFactory.registerPartner();
@@ -56,7 +57,7 @@ class OrderServiceImplTest {
         assertThat(actual.getStatus()).isEqualTo(Order.Status.ORDER_COMPLETE);
     }
 
-    @DisplayName("Order 지불 - 주문 가격 불일치")
+    @DisplayName("주문 결제 서비스 - 주문 가격 불일치")
     @Test
     public void paymentOrder_payAmountValidator() {
         PartnerInfo partnerInfo = partnerServiceFactory.registerPartner();
@@ -75,7 +76,7 @@ class OrderServiceImplTest {
             .hasMessage("주문가격이 불일치합니다.");
     }
 
-    @DisplayName("Order 지불 - 주문 과정 불일치")
+    @DisplayName("주문 결제 서비스 - 주문 과정 불일치")
     @Test
     public void paymentOrder_payMethodValidator() {
         PartnerInfo partnerInfo = partnerServiceFactory.registerPartner();
@@ -95,7 +96,7 @@ class OrderServiceImplTest {
     }
 
 
-    @DisplayName("Order 지불 - 이미 주문 완료")
+    @DisplayName("주문 결제 서비스 - 이미 주문 완료")
     @Test
     public void paymentOrder_payStatusValidator() {
         PartnerInfo partnerInfo = partnerServiceFactory.registerPartner();
@@ -115,7 +116,7 @@ class OrderServiceImplTest {
             .hasMessage("이미 결제완료된 주문입니다.");
     }
 
-    @DisplayName("Order 조회")
+    @DisplayName("주문 조회 서비스 (주문 총 금액)")
     @Test
     public void retrieveOrder() {
         PartnerInfo partnerInfo = partnerServiceFactory.registerPartner();

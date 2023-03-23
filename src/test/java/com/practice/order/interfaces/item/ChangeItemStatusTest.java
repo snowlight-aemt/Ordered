@@ -5,7 +5,8 @@ import com.practice.order.domain.item.Item;
 import com.practice.order.domain.item.ItemInfo;
 import com.practice.order.domain.item.ItemService;
 import com.practice.order.domain.partner.PartnerInfo;
-import com.practice.order.interfaces.partner.PartnerServiceFactory;
+import com.practice.order.util.ItemServiceFactory;
+import com.practice.order.util.PartnerServiceFactory;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,7 +27,8 @@ public class ChangeItemStatusTest {
     @Autowired MockMvc mvc;
 
     @Autowired PartnerServiceFactory partnerServiceFactory;
-    @Autowired ItemServiceFactory itemServiceFactory;
+    @Autowired
+    ItemServiceFactory itemServiceFactory;
 
     @Autowired ItemService itemService;
     @Autowired ItemDtoMapper itemDtoMapper;

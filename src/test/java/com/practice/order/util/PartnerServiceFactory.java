@@ -1,7 +1,9 @@
-package com.practice.order.interfaces.partner;
+package com.practice.order.util;
 
 import com.practice.order.domain.partner.PartnerInfo;
 import com.practice.order.domain.partner.PartnerService;
+import com.practice.order.interfaces.partner.PartnerDto;
+import com.practice.order.interfaces.partner.PartnerDtoMapper;
 import org.springframework.stereotype.Component;
 
 @Component
