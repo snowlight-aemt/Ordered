@@ -7,6 +7,7 @@ import com.practice.order.domain.order.payment.PayMethod;
 import com.practice.order.domain.partner.PartnerInfo;
 import com.practice.order.interfaces.item.ItemServiceFactory;
 import com.practice.order.interfaces.partner.PartnerServiceFactory;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -38,6 +39,7 @@ class OrderApiControllerTest {
     @Autowired
     OrderDtoMapper orderDtoMapper;
 
+    @DisplayName("주문 등록")
     @Test
     public void registerOrder() throws Exception {
         String itemToken = registerItem();
@@ -56,6 +58,7 @@ class OrderApiControllerTest {
         ;
     }
 
+    @DisplayName("주문 결제")
     @Test
     public void pay() throws Exception {
         String itemToken = registerItem();
@@ -79,6 +82,58 @@ class OrderApiControllerTest {
                 .andExpect(jsonPath("$.data").value("OK"))
                 .andExpect(jsonPath("$.message").isEmpty())
                 .andExpect(jsonPath("$.errorCode").isEmpty())
+        ;
+    }
+
+    @DisplayName("주문 결제 - 실패 (결제 방법)")
+    @Test
+    public void pay_wrong_pay_method() throws Exception {
+        String itemToken = registerItem();
+        var order = this.orderDtoFactory.convertRegisterOrderRequest(itemToken);
+        String orderToken = orderService.registerOrder(orderDtoMapper.of(order));
+
+        OrderInfo.Main orderInfo = orderService.retrieveOrder(orderToken);
+        OrderDto.PaymentRequest command = OrderDto.PaymentRequest.builder()
+                .payMethod(PayMethod.TOSS_PAY)
+                .orderToken(orderInfo.getOrderToken())
+                .amount(orderInfo.getTotalAmount())
+                .build();
+
+        mvc.perform(post("/api/v1/orders/payment-order")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(objectMapper.writeValueAsString(command)))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.result").value("FAIL"))
+                .andExpect(jsonPath("$.data").doesNotExist())
+                .andExpect(jsonPath("$.message").value("주문 과정에서의 결제수단이 다릅니다."))
+                .andExpect(jsonPath("$.errorCode").value("COMMON_INVALID_PARAMETER"))
+        ;
+    }
+
+    @DisplayName("주문 결제 - 실패 (금액)")
+    @Test
+    public void pay_wrong_amount() throws Exception {
+        String itemToken = registerItem();
+        var order = this.orderDtoFactory.convertRegisterOrderRequest(itemToken);
+        String orderToken = orderService.registerOrder(orderDtoMapper.of(order));
+
+        OrderInfo.Main orderInfo = orderService.retrieveOrder(orderToken);
+        OrderDto.PaymentRequest command = OrderDto.PaymentRequest.builder()
+                .payMethod(PayMethod.TOSS_PAY)
+                .orderToken(orderInfo.getOrderToken())
+                .amount(0L)
+                .build();
+
+        mvc.perform(post("/api/v1/orders/payment-order")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(objectMapper.writeValueAsString(command)))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.result").value("FAIL"))
+                .andExpect(jsonPath("$.data").doesNotExist())
+                .andExpect(jsonPath("$.message").value("주문가격이 불일치합니다."))
+                .andExpect(jsonPath("$.errorCode").value("COMMON_INVALID_PARAMETER"))
         ;
     }
 
