@@ -60,7 +60,7 @@ public class OrderCommand {
     public static class RegisterOrderItemOptionGroup {
         private final Integer ordering;
         private final String itemOptionGroupName;
-        private final List<RegisterOrderItemOption> orderItemOptionList;
+        private final List<RegisterOrderItemOption> orderItemOptions;
 
         public OrderItemOptionGroup toEntity(OrderItem orderItem) {
             return OrderItemOptionGroup.builder()

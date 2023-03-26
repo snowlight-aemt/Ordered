@@ -23,7 +23,7 @@ public class OrderServiceFactory {
         OrderCommand.RegisterOrderItemOptionGroup itemGroupRequest = OrderCommand.RegisterOrderItemOptionGroup.builder()
                 .ordering(1)
                 .itemOptionGroupName("group name")
-                .orderItemOptionList(List.of(optionRequest))
+                .orderItemOptions(List.of(optionRequest))
                 .build();
 
         OrderCommand.RegisterOrderItem registerOrderRequest = OrderCommand.RegisterOrderItem.builder()

@@ -15,7 +15,6 @@ public interface OrderDtoMapper {
     @Mappings({@Mapping(source = "request.orderItemOptionGroups", target = "orderItemOptionGroups")})
     OrderCommand.RegisterOrderItem of(OrderDto.RegisterOrderItemRequest request);
 
-    @Mappings({@Mapping(source = "request.orderItemOptions", target = "orderItemOptionList")})
     OrderCommand.RegisterOrderItemOptionGroup of(OrderDto.RegisterOrderItemOptionGroupRequest request);
 
     OrderCommand.RegisterOrderItemOption of(OrderDto.RegisterOrderItemOptionRequest request);

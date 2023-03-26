@@ -1,6 +1,5 @@
 package com.practice.order.infrastructure.order;
 
-import com.google.common.collect.Lists;
 import com.practice.order.domain.item.Item;
 import com.practice.order.domain.item.ItemReader;
 import com.practice.order.domain.order.*;
@@ -41,7 +40,7 @@ public class OrderItemSeriesFactoryImpl implements OrderItemSeriesFactory {
     }
 
     private void storeOrderItemOption(OrderCommand.RegisterOrderItemOptionGroup orderItemOptionGroupRequest, OrderItemOptionGroup orderItemOptionGroup) {
-        for (var orderItemOptionRequest : orderItemOptionGroupRequest.getOrderItemOptionList()) {
+        for (var orderItemOptionRequest : orderItemOptionGroupRequest.getOrderItemOptions()) {
             OrderItemOption orderItemOption = orderItemOptionRequest.toEntity(orderItemOptionGroup);
             orderStore.store(orderItemOption);
         }
