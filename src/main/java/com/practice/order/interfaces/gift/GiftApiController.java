@@ -1,7 +1,9 @@
 package com.practice.order.interfaces.gift;
 
 import com.practice.order.application.order.OrderFacade;
+import com.practice.order.application.order.gift.GiftFacade;
 import com.practice.order.common.response.CommonResponse;
+import com.practice.order.domain.order.OrderCommand;
 import com.practice.order.interfaces.order.OrderDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,10 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class GiftApiController {
     private final OrderFacade orderFacade;
+    private final GiftFacade giftFacade;
     private final GiftDtoMapper giftDtoMapper;
 
     @PostMapping("/init")
-    public CommonResponse test(@RequestBody @Valid GiftDto.RegisterOrder registerOrder) {
+    public CommonResponse registerOrder(@RequestBody @Valid GiftDto.RegisterOrder registerOrder) {
         var command = giftDtoMapper.of(registerOrder);
         String orderToken = orderFacade.registerOrder(command);
         var response = OrderDto.RegisterOrderResponse.builder()
@@ -29,4 +32,12 @@ public class GiftApiController {
 
         return CommonResponse.success(response);
     }
+
+    @PostMapping("/payment-order")
+    public CommonResponse paymentOrder(@RequestBody @Valid GiftDto.PaymentRequest request) {
+        OrderCommand.PaymentRequest command = this.giftDtoMapper.of(request);
+        this.giftFacade.paymentOrder(command);
+        return null;
+    }
+
 }

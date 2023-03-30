@@ -1,6 +1,8 @@
 package com.practice.order.interfaces.gift;
 
 import com.practice.order.domain.order.fragment.DeliveryFragment;
+import com.practice.order.domain.order.payment.PayMethod;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
@@ -68,5 +70,18 @@ public class GiftDto {
         @NotNull(message = "itemOptionGroupName 는 필수 값입니다.")
         private String itemOptionName;
         private Long itemOptionPrice;
+    }
+
+    @Getter
+    @Builder
+    public static class PaymentRequest {
+        @NotBlank(message = "orderToken 는 필수값입니다")
+        private String orderToken;
+        @NotNull(message = "payMethod 는 필수값입니다")
+        private PayMethod payMethod;
+        @NotNull(message = "amount 는 필수값입니다")
+        private Long amount;
+        @NotBlank(message = "orderDescription 는 필수값입니다")
+        private String orderDescription;
     }
 }

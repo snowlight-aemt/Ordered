@@ -14,7 +14,7 @@ public class OrderServiceImpl implements OrderService {
     private final OrderReader orderReader;
     private final OrderInfoMapper orderInfoMapper;
     private final OrderItemSeriesFactory orderItemSeriesFactory;
-    private final com.practice.order.domain.order.payment.PaymentProcessor PaymentProcessor;
+    private final com.practice.order.domain.order.payment.PaymentProcessor paymentProcessor;
 
     @Transactional
     @Override
@@ -30,7 +30,7 @@ public class OrderServiceImpl implements OrderService {
     public void paymentOrder(OrderCommand.PaymentRequest paymentRequest) {
         String orderToken = paymentRequest.getOrderToken();
         Order order = this.orderReader.getOrderBy(orderToken);
-        this.PaymentProcessor.pay(order, paymentRequest);
+        this.paymentProcessor.pay(order, paymentRequest);
         order.orderComplete();
     }
 
