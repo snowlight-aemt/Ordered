@@ -1,0 +1,44 @@
+### 주문 등록
+POST http://localhost:8080/api/v1/gift-orders/init
+Content-Type: application/json
+
+{
+  "buyerUserId": "4444",
+  "giftReceiverName": "Test Name",
+  "giftReceiverPhone": "000-000-0000",
+  "giftMessage": "Msg",
+  "payMethod": "KAKAO_PAY",
+  "pushType": "KAKAO",
+  "orderItems": [
+    {
+      "orderCount": "1",
+      "itemName": "티셔츠",
+      "itemToken": "itm_tDwWdzepqJPDbPJQ",
+      "itemPrice": 30000,
+      "orderItemOptionGroups": [
+        {
+          "ordering": 1,
+          "itemOptionGroupName": "사이즈",
+          "orderItemOptions": [
+            {
+              "ordering": 1,
+              "itemOptionName": "MEDIUM",
+              "itemOptionPrice": 1000
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+### 주문 결제
+POST http://localhost:8080/api/v1/gift-orders/payment-order
+Content-Type: application/json
+
+{
+  "orderToken": "ord_wHiwdpfHzOJFpTeO",
+  "amount": 31000,
+  "payMethod": "KAKAO_PAY",
+  "orderDescription": "MSG"
+}

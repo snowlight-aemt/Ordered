@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 public class GiftOrderServiceImpl implements GiftOrderService {
     private final OrderReader orderReader;
     private final PaymentProcessor paymentProcessor;
+    private final GiftMessageChannelSender giftMessageChannelSender;
+
     @Override
     public void paymentOrder(OrderCommand.PaymentRequest paymentRequest) {
         Order order = orderReader.getOrderBy(paymentRequest.getOrderToken());
@@ -23,6 +25,6 @@ public class GiftOrderServiceImpl implements GiftOrderService {
         this.paymentProcessor.pay(order, paymentRequest);
         order.orderComplete();
 
-
+        giftMessageChannelSender.paymentComplete(new GiftPaymentCompleteMessage(paymentRequest.getOrderToken()));
     }
 }

@@ -1,4 +1,4 @@
-package com.practice.order.interfaces.gift;
+package com.practice.order.interfaces.order.gift;
 
 import com.practice.order.domain.order.fragment.DeliveryFragment;
 import com.practice.order.domain.order.payment.PayMethod;

@@ -1,4 +1,4 @@
-package com.practice.order.interfaces.gift;
+package com.practice.order.interfaces.order.gift;
 
 import com.practice.order.application.order.OrderFacade;
 import com.practice.order.application.order.gift.GiftFacade;
@@ -37,7 +37,7 @@ public class GiftApiController {
     public CommonResponse paymentOrder(@RequestBody @Valid GiftDto.PaymentRequest request) {
         OrderCommand.PaymentRequest command = this.giftDtoMapper.of(request);
         this.giftFacade.paymentOrder(command);
-        return null;
+        return CommonResponse.success("OK");
     }
 
 }
