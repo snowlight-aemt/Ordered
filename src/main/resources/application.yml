@@ -16,3 +16,8 @@ spring:
     name: order-service
   profiles:
     include: aws
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
