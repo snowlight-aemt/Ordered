@@ -1,0 +1,6 @@
+cloud:
+  aws:
+    access-key: test
+    secret-key: test
+    end-point: http://localhost:4566
+    region: us-east-1

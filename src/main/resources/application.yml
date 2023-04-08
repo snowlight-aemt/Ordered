@@ -15,7 +15,12 @@ spring:
   application:
     name: order-service
   profiles:
-    include: aws
+    group:
+      local: aws-local
+      stage: eureka,aws
+
+server:
+  port: 28080
 
 eureka:
   client:
