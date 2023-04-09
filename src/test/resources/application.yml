@@ -1,0 +1,27 @@
+spring:
+  lifecycle:
+    timeout-per-shutdown-phase: 20s
+  jpa:
+    show-sql: true
+    #    database-platform: mysql
+    hibernate:
+      ddl-auto: none
+  datasource:
+    hikari:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://localhost:3306/order?serverTimezone=UTC&characterEncoding=UTF-8
+      username: order-svc
+      password: order-pass
+  application:
+    name: order-service
+  profiles:
+    group:
+      default: aws-local
+
+server:
+  port: 28080
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
