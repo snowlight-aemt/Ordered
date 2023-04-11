@@ -34,6 +34,20 @@ public class OrderServiceImpl implements OrderService {
         order.orderComplete();
     }
 
+    @Override
+    public void updateReceiverInfo(String orderToken, OrderCommand.UpdateReceiverCommand command) {
+        Order order = this.orderReader.getOrderBy(orderToken);
+        order.updateDeliveryFragment(
+                command.getReceiverName(),
+                command.getReceiverPhone(),
+                command.getReceiverAddress1(),
+                command.getReceiverAddress2(),
+                command.getReceiverZipcode(),
+                command.getEtcMessage()
+        );
+        order.deliveryPrepare();
+    }
+
     @Transactional(readOnly = true)
     @Override
     public OrderInfo.Main retrieveOrder(String orderToken) {

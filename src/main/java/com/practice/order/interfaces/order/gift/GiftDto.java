@@ -3,6 +3,7 @@ package com.practice.order.interfaces.order.gift;
 import com.practice.order.domain.order.fragment.DeliveryFragment;
 import com.practice.order.domain.order.payment.PayMethod;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
@@ -83,5 +84,23 @@ public class GiftDto {
         private Long amount;
         @NotBlank(message = "orderDescription 는 필수값입니다")
         private String orderDescription;
+    }
+
+    @Getter
+    @Builder
+    public static class UpdateReceiverInfoReq {
+        @NotEmpty
+        private String receiverName;
+        @NotEmpty
+        private String receiverPhone;
+        @NotEmpty
+        private String receiverZipcode;
+        @NotEmpty
+        private String receiverAddress1;
+        @NotEmpty
+        private String receiverAddress2;
+        @NotEmpty
+        private String etcMessage;
+
     }
 }

@@ -6,6 +6,7 @@ import com.practice.order.domain.order.item.OrderItem;
 import com.practice.order.domain.order.item.OrderItemOption;
 import com.practice.order.domain.order.item.OrderItemOptionGroup;
 import com.practice.order.domain.order.payment.PayMethod;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -94,5 +95,16 @@ public class OrderCommand {
         private String orderToken;
         private Long amount;
         private PayMethod payMethod;
+    }
+
+    @Getter
+    @Builder
+    public static class UpdateReceiverCommand {
+        private String receiverName;
+        private String receiverPhone;
+        private String receiverZipcode;
+        private String receiverAddress1;
+        private String receiverAddress2;
+        private String etcMessage;
     }
 }

@@ -22,4 +22,9 @@ public class OrderFacade {
         this.orderService.paymentOrder(command);
         notificationService.sendKakao(null, null);
     }
+
+    public void updateReceiverInfo(String orderToken, OrderCommand.UpdateReceiverCommand command) {
+        this.orderService.updateReceiverInfo(orderToken, command);
+        notificationService.sendKakao(null, null);
+    }
 }
