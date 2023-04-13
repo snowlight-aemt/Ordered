@@ -43,6 +43,23 @@ public class Order extends AbstractEntity {
         return this.getStatus() != Status.INIT;
     }
 
+    public void updateDeliveryFragment(String receiverName,
+                                       String receiverPhone,
+                                       String receiverAddress1,
+                                       String receiverAddress2,
+                                       String receiverZipcode,
+                                       String etcMessage) {
+        this.deliveryFragment = new DeliveryFragment(receiverName,
+                receiverPhone,
+                receiverAddress1,
+                receiverAddress2,
+                receiverZipcode,
+                etcMessage);
+    }
+
+    public void deliveryPrepare() {
+        this.status = Status.DELIVERY_PREPARE;
+    }
 
     @Getter
     @RequiredArgsConstructor
