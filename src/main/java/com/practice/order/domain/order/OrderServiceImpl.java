@@ -34,6 +34,7 @@ public class OrderServiceImpl implements OrderService {
         order.orderComplete();
     }
 
+    @Transactional
     @Override
     public void updateReceiverInfo(String orderToken, OrderCommand.UpdateReceiverCommand command) {
         Order order = this.orderReader.getOrderBy(orderToken);
