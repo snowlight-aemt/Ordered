@@ -50,11 +50,11 @@ public class Order extends AbstractEntity {
                                        String receiverZipcode,
                                        String etcMessage) {
         this.deliveryFragment = new DeliveryFragment(receiverName,
-                receiverPhone,
-                receiverAddress1,
-                receiverAddress2,
-                receiverZipcode,
-                etcMessage);
+                                                    receiverPhone,
+                                                    receiverZipcode,
+                                                    receiverAddress1,
+                                                    receiverAddress2,
+                                                    etcMessage);
     }
 
     public void deliveryPrepare() {
