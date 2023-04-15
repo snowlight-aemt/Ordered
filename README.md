@@ -7,13 +7,14 @@ Study MSA 공부를 위한 샘플 프로젝트 :)
 * Jpa
 * Eureka
 * Aws SQS - Massage Queue 
-* [Localstask (Docker)](https://localstack.cloud/)
-  * Sqs 로컬 테스트 
 * Mysql
 
-### 테스트 라이브러리
+### 테스트 도구
 * FixtureMonkey
 * Mockito
+* [Localstask (Docker)](https://localstack.cloud/)
+  * Sqs 로컬 테스트 
+* awaitility
 
 ---
 
