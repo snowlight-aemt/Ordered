@@ -2,6 +2,7 @@ package com.practice.order.application.order;
 
 import com.practice.order.domain.notification.NotificationService;
 import com.practice.order.domain.order.OrderCommand;
+import com.practice.order.domain.order.OrderInfo;
 import com.practice.order.domain.order.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,5 +27,9 @@ public class OrderFacade {
     public void updateReceiverInfo(String orderToken, OrderCommand.UpdateReceiverCommand command) {
         this.orderService.updateReceiverInfo(orderToken, command);
         notificationService.sendKakao(null, null);
+    }
+
+    public OrderInfo.Main retrieveOrder(String orderToken) {
+        return this.orderService.retrieveOrder(orderToken);
     }
 }

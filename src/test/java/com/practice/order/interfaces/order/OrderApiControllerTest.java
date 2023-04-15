@@ -1,6 +1,7 @@
 package com.practice.order.interfaces.order;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.practice.order.domain.order.OrderCommand;
 import com.practice.order.domain.order.OrderInfo;
 import com.practice.order.domain.order.OrderService;
 import com.practice.order.domain.order.payment.PayMethod;
@@ -16,6 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -117,7 +119,8 @@ class OrderApiControllerTest {
     public void pay_wrong_amount() throws Exception {
         String itemToken = registerItem();
         var order = this.orderDtoFactory.convertRegisterOrderRequest(itemToken);
-        String orderToken = orderService.registerOrder(orderDtoMapper.of(order));
+        OrderCommand.RegisterOrder commandRegisterOrder = orderDtoMapper.of(order);
+        String orderToken = orderService.registerOrder(commandRegisterOrder);
 
         OrderInfo.Main orderInfo = orderService.retrieveOrder(orderToken);
         OrderDto.PaymentRequest command = OrderDto.PaymentRequest.builder()
@@ -142,5 +145,25 @@ class OrderApiControllerTest {
         PartnerInfo partnerInfo = partnerServiceFactory.registerPartner();
         String partnerToken = partnerInfo.getPartnerToken();
         return itemServiceFactory.registerItem(partnerToken);
+    }
+
+    @DisplayName("주문 조회 - 성공")
+    @Test
+    void retrieveOrder() throws Exception {
+        String itemToken = registerItem();
+        var order = this.orderDtoFactory.convertRegisterOrderRequest(itemToken);
+        OrderCommand.RegisterOrder commandRegisterOrder = orderDtoMapper.of(order);
+        String orderToken = orderService.registerOrder(commandRegisterOrder);
+        orderService.retrieveOrder(orderToken);
+
+        mvc.perform(get("/api/v1/orders/" + orderToken))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.result").value("SUCCESS"))
+                .andExpect(jsonPath("$.data").exists())
+                .andExpect(jsonPath("$.data.orderToken").value(orderToken))
+                .andExpect(jsonPath("$.message").isEmpty())
+                .andExpect(jsonPath("$.errorCode").isEmpty())
+        ;
     }
 }

@@ -1,6 +1,7 @@
 package com.practice.order.interfaces.order;
 
 import com.practice.order.domain.order.OrderCommand;
+import com.practice.order.domain.order.OrderInfo;
 import org.mapstruct.*;
 
 @Mapper(
@@ -9,6 +10,8 @@ import org.mapstruct.*;
         unmappedTargetPolicy = ReportingPolicy.ERROR
 )
 public interface OrderDtoMapper {
+    OrderDto.Main of(OrderInfo.Main orderResult);
+
     @Mappings({@Mapping(source = "request.orderItems", target = "orderItems")})
     OrderCommand.RegisterOrder of(OrderDto.RegisterOrderRequest request);
 
