@@ -98,7 +98,7 @@ public class OrderDto {
         private final Long itemPrice;
         private final String deliveryStatus;
         private final String deliveryStatusDescription;
-        private final List<OrderInfo.OrderItemOptionGroup> orderItemOptionGroups;
+        private final List<OrderItemOptionGroup> orderItemOptionGroups;
     }
 
     @Getter
@@ -106,7 +106,7 @@ public class OrderDto {
     public static class OrderItemOptionGroup {
         private final Integer ordering;
         private final String itemOptionGroupName;
-        private final List<OrderInfo.OrderItemOption> orderItemOptions;
+        private final List<OrderItemOption> orderItemOptions;
     }
 
     @Getter
