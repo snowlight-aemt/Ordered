@@ -26,3 +26,7 @@ eureka:
   client:
     register-with-eureka: false
     fetch-registry: false
+
+springdoc:
+  swagger-ui:
+    path: swagger-ui.html
