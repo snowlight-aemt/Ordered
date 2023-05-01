@@ -49,8 +49,9 @@ spring:
 ![gift-order-accept](https://user-images.githubusercontent.com/82430645/230768894-19d75555-76f4-4e18-a02b-a7ae702da795.png)
 
 ### 카카오 페이 적용 
-* 카카오 페이 구성
- 
+* 카카오 페이 구성.  
+![order-kakao-pay](https://user-images.githubusercontent.com/82430645/235439619-df0d8e82-1df4-466f-b016-5a665e8238ec.png)
+
 [Github - spring-kakao-pay-api](https://github.com/snowlight-aemt/test-code/tree/master/spring-kakao-pay-api)  
 [Notion - Kakao Pay Api](https://www.notion.so/aemt/Kakao-Pay-Api-1-ceee3f51a9c745bfa4142f7be1938b00?pvs=4)
 
