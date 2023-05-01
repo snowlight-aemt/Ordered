@@ -41,7 +41,7 @@ POST http://localhost:28080/payment-order/kakao/payment
 Content-Type: application/json
 
 {
-  "orderToken": "ord_VNGxKDjVPWCbDTGg",
+  "orderToken": "ord_fvjEayVZMOVfsTCK",
   "userToken": "User_Test",
   "ItemName":  "티셔츠",
   "quantify": 1,

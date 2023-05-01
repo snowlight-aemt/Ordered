@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.practice.order.domain.order.OrderCommand;
 import com.practice.order.domain.order.payment.PayMethod;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
@@ -24,7 +25,9 @@ public class KakaoPayApiCaller implements PaymentApiCaller {
     public static final String SUCCESS_URL = "http://localhost:28080/payment-order/kakao/success";
     public static final String FAIL_URL = "http://localhost:28080/payment-order/kakao/fail";
     public static final String CANCEL_URL = "http://localhost:28080/payment-order/kakao/cancel";
-    private static final String API_KEY = "8bf1c6f271be1b28104f097ce127088e";
+
+    @Value("${spring.pay.kakao.credentials.admin-key}")
+    private String API_KEY;
 
     private final ObjectMapper objectMapper;
     private final RestTemplate restTemplate;
