@@ -84,6 +84,8 @@ public class GiftDto {
         private Long amount;
         @NotBlank(message = "orderDescription 는 필수값입니다")
         private String orderDescription;
+        @NotBlank(message = "pgToken")
+        private String pgToken;
     }
 
     @Getter

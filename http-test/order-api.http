@@ -1,5 +1,5 @@
 ### 주문 등록
-POST http://localhost:8080/api/v1/orders/init
+POST http://localhost:28080/api/v1/orders/init
 Content-Type: application/json
 
 {
@@ -17,7 +17,7 @@ Content-Type: application/json
     {
       "orderCount": "1",
       "itemName": "티셔츠",
-      "itemToken": "itm_tDwWdzepqJPDbPJQ",
+      "itemToken": "itm_zzjSLPKizfLcaMbC",
       "itemPrice": 30000,
       "orderItemOptionGroups": [
         {
@@ -37,11 +37,26 @@ Content-Type: application/json
 }
 
 ### 주문 결제
+POST http://localhost:28080/payment-order/kakao/payment
+Content-Type: application/json
+
+{
+  "orderToken": "ord_VNGxKDjVPWCbDTGg",
+  "userToken": "User_Test",
+  "ItemName":  "티셔츠",
+  "quantify": 1,
+  "taxFreeAmount":  0,
+  "amount": 31000,
+  "payMethod":  "KAKAO_PAY"
+}
+
+
+### 주문 결제
 POST http://localhost:8080/api/v1/orders/payment-order
 Content-Type: application/json
 
 {
-  "orderToken": "ord_fKtwTtjgNYTVuswJ",
+  "orderToken": "ord_KptOUuxsjwYxbEFv",
   "amount": 31000,
   "payMethod": "KAKAO_PAY"
 }

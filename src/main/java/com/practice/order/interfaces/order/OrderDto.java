@@ -56,10 +56,23 @@ public class OrderDto {
 
     @Getter
     @Builder
+    public static class PaymentWaitRequest {
+        private String orderToken;
+        private String userToken;
+        private String ItemName;
+        private Integer quantify;
+        private Long taxFreeAmount;
+        private Long amount;
+        private PayMethod payMethod;
+    }
+
+    @Getter
+    @Builder
     public static class PaymentRequest {
         private String orderToken;
         private Long amount;
         private PayMethod payMethod;
+        private String pgToken;
     }
 
     @Getter

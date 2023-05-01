@@ -5,6 +5,8 @@ public interface OrderService {
 
     public OrderInfo.Main retrieveOrder(String orderToken);
 
+    public OrderInfo.PaymentProcessorResponse inPaymentOrder(OrderCommand.PaymentWaitRequest command);
+
     public void paymentOrder(OrderCommand.PaymentRequest command);
 
     public void updateReceiverInfo(String orderToken, OrderCommand.UpdateReceiverCommand command);
