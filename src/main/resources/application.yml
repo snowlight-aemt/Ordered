@@ -1,23 +1,17 @@
 spring:
   lifecycle:
     timeout-per-shutdown-phase: 20s
-  jpa:
-    show-sql: true
-    #    database-platform: mysql
-    hibernate:
-      ddl-auto: none
-  datasource:
-    hikari:
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      jdbc-url: jdbc:mysql://localhost:3306/order?serverTimezone=UTC&characterEncoding=UTF-8
-      username: order-svc
-      password: order-pass
   application:
     name: order-service
   profiles:
     group:
+<<<<<<< HEAD
       local: aws-local
       stage: eureka,aws
+=======
+      local: aws-local,kakao,db-h2
+      stage: eureka,aws,kakao,db-mybatis
+>>>>>>> cedc7b6 (application properties 파일 수정)
 
 server:
   port: 28080
