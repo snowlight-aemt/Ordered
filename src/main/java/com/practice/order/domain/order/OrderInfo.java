@@ -69,5 +69,12 @@ public class OrderInfo {
         private final String itemOptionName;
         private final Long itemOptionPrice;
     }
+
+
+    @Getter
+    @Builder
+    public static class PaymentProcessorResponse {
+        private String nextRedirectPcUrl;
+    }
 }
 

@@ -4,6 +4,8 @@ import com.practice.order.domain.notification.NotificationService;
 import com.practice.order.domain.order.OrderCommand;
 import com.practice.order.domain.order.OrderInfo;
 import com.practice.order.domain.order.OrderService;
+import com.practice.order.infrastructure.order.payment.KakaoPaymentDto;
+import com.practice.order.interfaces.order.payment.kakao.KakaoRequestCommand;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,12 @@ public class OrderFacade {
         String orderToken = this.orderService.registerOrder(command);
         notificationService.sendKakao(null, null);
         return orderToken;
+    }
+
+    public OrderInfo.PaymentProcessorResponse inPay(OrderCommand.PaymentWaitRequest command) {
+        OrderInfo.PaymentProcessorResponse paymentProcessorResponse = this.orderService.inPaymentOrder(command);
+        notificationService.sendKakao(null, null);
+        return paymentProcessorResponse;
     }
 
     public void pay(OrderCommand.PaymentRequest command) {

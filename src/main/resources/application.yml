@@ -5,13 +5,8 @@ spring:
     name: order-service
   profiles:
     group:
-<<<<<<< HEAD
-      local: aws-local
-      stage: eureka,aws
-=======
       local: aws-local,kakao,db-h2
       stage: eureka,aws,kakao,db-mybatis
->>>>>>> cedc7b6 (application properties 파일 수정)
 
 server:
   port: 28080
@@ -24,3 +19,12 @@ eureka:
 springdoc:
   swagger-ui:
     path: swagger-ui.html
+
+
+logging:
+  level:
+    org:
+      springframework:
+        web:
+          client:
+            RestTemplate: trace

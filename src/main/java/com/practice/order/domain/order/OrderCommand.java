@@ -6,7 +6,6 @@ import com.practice.order.domain.order.item.OrderItem;
 import com.practice.order.domain.order.item.OrderItemOption;
 import com.practice.order.domain.order.item.OrderItemOptionGroup;
 import com.practice.order.domain.order.payment.PayMethod;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -91,10 +90,24 @@ public class OrderCommand {
 
     @Getter
     @Builder
+    public static class PaymentWaitRequest {
+        private String orderToken;
+        private String userToken;
+        private PayMethod payMethod;
+
+        private String itemName;
+        private Integer quantity;
+        private Long totalAmount;
+        private Integer taxFreeAmount;
+    }
+
+    @Getter
+    @Builder
     public static class PaymentRequest {
         private String orderToken;
         private Long amount;
         private PayMethod payMethod;
+        private String pgToken;
     }
 
     @Getter

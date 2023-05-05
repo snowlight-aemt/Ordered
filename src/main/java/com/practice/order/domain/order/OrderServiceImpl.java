@@ -27,6 +27,14 @@ public class OrderServiceImpl implements OrderService {
 
     @Transactional
     @Override
+    public OrderInfo.PaymentProcessorResponse inPaymentOrder(OrderCommand.PaymentWaitRequest paymentWaitRequest) {
+        String orderToken = paymentWaitRequest.getOrderToken();
+        Order order = this.orderReader.getOrderBy(orderToken);
+        return this.paymentProcessor.inPay(order, paymentWaitRequest);
+    }
+
+    @Transactional
+    @Override
     public void paymentOrder(OrderCommand.PaymentRequest paymentRequest) {
         String orderToken = paymentRequest.getOrderToken();
         Order order = this.orderReader.getOrderBy(orderToken);
