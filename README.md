@@ -45,3 +45,8 @@ Study MSA 공부를 위한 샘플 프로젝트 :)
 
 ### 일정 관리
 https://aemt.notion.site/Ordered-665ea42f195040ccae55bfd3c303597b
+
+### 공부 사이트
+https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81-JPA-%EC%9B%B9%EC%95%B1  
+https://fastcampus.co.kr/dev_red_ygw  
+https://fastcampus.co.kr/dev_red_lhc  
