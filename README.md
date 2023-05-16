@@ -44,7 +44,7 @@ Study MSA 공부를 위한 샘플 프로젝트 :)
 [Ordered-Gateway](https://github.com/snowlight-aemt/Ordered-api-gateway-server). 
 
 ### 일정 관리
-https://aemt.notion.site/Ordered-665ea42f195040ccae55bfd3c303597b
+~~https://aemt.notion.site/Ordered-665ea42f195040ccae55bfd3c303597b~~  
 노션으로 관리시 일정 관리에 너무 많은 시간이 소요됨...
 간단하게 이슈를 체크하는 정도로 진행하기 위해서 `Github Projects` 사용 예정 
 (기능 확인후 바로 변경...)
