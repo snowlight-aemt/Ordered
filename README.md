@@ -53,7 +53,7 @@
 간단하게 이슈를 체크하는 정도로 진행하기 위해서 `Github Projects` 사용 예정 
 (기능 확인후 바로 변경...)
 
-## Fork Url
+## 참고 URL
 https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81-%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C-%EB%A7%88%EC%9D%B4%ED%81%AC%EB%A1%9C%EC%84%9C%EB%B9%84%EC%8A%A4/dashboard
 https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81-JPA-%EC%9B%B9%EC%95%B1  
 https://fastcampus.co.kr/dev_red_ygw  
